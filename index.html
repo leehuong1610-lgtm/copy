@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dự Án - Ban Công Nghệ</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <style>
+            /* THIẾT LẬP CHUNG DỰA TRÊN STYLE GỐC */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Quicksand', sans-serif;
+            }
+
+            body {
+                background-color: #F0F9FF;
+                padding: 20px 80px;
+                display: flex;
+                flex-direction: column;
+                gap: 64px;
+                overflow-x: hidden;
+            }
+
+            /* HEADER (GIỮ Y NGUYÊN QUY TẮC RESPONSIVE) */
+            header {
+                position: sticky;
+                top: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 24px 40px;
+                background-color: #FFFFFFE5;
+                border-radius: 48px;
+                border: 2px solid #FFFFFFCC;
+                box-shadow: 12px 12px 24px 0px #CBDBE8;
+                backdrop-filter: blur(12px);
+                z-index: 1000;
+                flex-wrap: nowrap;
+                gap: 12px;
+            }
+
+            .header_logo {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+            }
+
+            .header_logo img {
+                height: 48px;
+            }
+
+            .header_text {
+                margin-left: 8px;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: -1.2px;
+                vertical-align: middle;
+                text-transform: uppercase;
+                background: linear-gradient(90deg, #061826 0%, #2FA0C6 50%, #58C9F3 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                white-space: nowrap;
+            }
+
+            .header_nav {
+                display: flex;
+                align-items: center;
+                flex-shrink: 1;
+            }
+
+            .header_nav_item {
+                text-decoration: none;
+                color: #333;
+                padding-left: 32px; 
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 24px;
+                transition: color 0.3s;
+                white-space: nowrap;
+            }
+
+            .header_nav_item:hover {
+                color: #2FA0C6;
+            }
+
+            .header_nav_item.active {
+                color: #2FA0C6;
+                border-bottom: 2px solid #2FA0C6;
+            }
+
+            .header_cta-button {
+                background:linear-gradient(107.34deg, #2FA0C6 0%, #1C4E75 100%);
+                padding: 12px 32px;
+                border-radius: 30px;
+                box-shadow: 6px 6px 15px 0px #2FA0C64D;
+                cursor: pointer;
+                background-size: 200% auto;
+                transition: transform 0.3s;
+                flex-shrink: 0;
+            }
+
+            .header_cta-link {
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 14px;
+                text-transform: uppercase;
+                color: #FFFFFF;
+                white-space: nowrap;
+            }
+
+            /* HERO TRANG DỰ ÁN */
+            .project-hero {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                align-items: center;
+                padding-top: 40px;
+            }
+
+            .pre-title {
+                font-weight: 700;
+                font-size: 12px;
+                letter-spacing: 2.4px;
+                text-transform: uppercase;
+                color: #1C4E75;
+                background-color: #BDE5FF;
+                padding: 8px 24px;
+                border-radius: 50px;
+            }
+
+            .main-title {
+                font-weight: 700;
+                font-size: 56px;
+                color: #1C4E75;
+            }
+
+            .main-title span {
+                background: linear-gradient(90deg, #2FA0C6 50%, #58C9F3 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            /* FILTER BAR */
+            .filter-container {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .filter-btn {
+                padding: 12px 28px;
+                border-radius: 24px;
+                border: 2px solid #FFFFFF;
+                background: #FFFFFF;
+                color: #64748B;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 6px 6px 12px 0px #CBDBE8;
+                transition: 0.3s;
+            }
+
+            .filter-btn:hover, .filter-btn.active {
+                background: #2FA0C6;
+                color: #FFFFFF;
+                border-color: #2FA0C6;
+                transform: translateY(-3px);
+            }
+
+            /* PROJECTS GRID (3 CỘT -> 1 CỘT) */
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                justify-items: center;
+            }
+
+            .project-card {
+                background-color: #FFFFFF;
+                border-radius: 48px;
+                overflow: hidden;
+                box-shadow: 12px 12px 24px 0px #CBDBE8;
+                border-top: 2px solid #FFFFFFCC;
+                transition: transform 0.3s;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .project-card:hover {
+                transform: translateY(-10px);
+            }
+
+            .project-image-box {
+                width: 100%;
+                height: 240px;
+                padding: 16px;
+                position: relative;
+            }
+
+            .project-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 32px;
+            }
+
+            .project-content {
+                padding: 0 32px 32px 32px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .project-tags {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .tag {
+                font-size: 11px;
+                font-weight: 700;
+                color: #1C4E75;
+                background-color: #F0F9FF;
+                padding: 6px 14px;
+                border-radius: 12px;
+                text-transform: uppercase;
+            }
+
+            .project-name {
+                font-weight: 700;
+                font-size: 24px;
+                color: #1C4E75;
+            }
+
+            .project-desc {
+                font-size: 15px;
+                line-height: 22px;
+                color: #64748B;
+            }
+
+            .project-link {
+                margin-top: 8px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                font-weight: 700;
+                color: #2FA0C6;
+                transition: gap 0.3s;
+            }
+
+            .project-link:hover {
+                gap: 12px;
+            }
+
+            /* FOOTER (GIỮ Y NGUYÊN) */
+            footer {
+                margin-top: 64px;
+                background-color: #061826;
+                border-radius: 64px;
+                padding: 80px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 64px;
+                position: relative;
+                overflow: hidden;
+                color: #FFFFFF;
+            }
+
+            .footer_main {
+                display: flex;
+                flex-direction: row; 
+                justify-content: space-between;
+                width: 100%;
+                gap: 48px;
+            }
+
+            .footer_column {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start; 
+                gap: 16px;
+                flex: 1;
+            }
+
+            .footer_text {
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 32px;
+                letter-spacing: -1.2px;
+                text-transform: uppercase;
+                color: #1886ae;
+            }
+
+            .footer_social {
+                display: flex;
+                gap: 16px;
+            }
+
+            .footer_social-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: #040b13;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.3s;
+                text-decoration: none;
+            }
+
+            .footer_social-icon img {
+                width: 24px;
+                height: 24px;
+                object-fit: contain;
+            }
+
+            .footer_social-icon:hover {
+                background-color: #2FA0C6;
+                transform: translateY(-5px);
+            }
+
+            .footer_bottom {
+                width: 100%;
+                text-align: center;
+                padding-top: 32px;
+                border-top: 1px solid #FFFFFF1A;
+                font-size: 12px;
+                letter-spacing: 4.8px;
+                color: #FFFFFF4D;
+                text-transform: uppercase;
+            }
+
+            /* --- RESPONSIVE --- */
+            @media (max-width: 1024px) {
+                body { padding: 20px 40px; }
+                .main-title { font-size: 44px; }
+                .projects-grid { 
+                    grid-template-columns: repeat(2, 1fr); 
+                }
+            }
+
+            @media (max-width: 768px) {
+                body { padding: 15px; gap: 40px; }
+                
+                header { 
+                    flex-direction: row; 
+                    padding: 10px 16px;
+                    border-radius: 32px;
+                    gap: 8px;
+                }
+                .header_logo img { height: 24px; }
+                .header_text { font-size: 10px; margin-left: 4px; }
+                .header_nav_item { padding-left: 8px; font-size: 9px; }
+                .header_cta-button { padding: 6px 14px; }
+                .header_cta-link { font-size: 8px; }
+
+                .main-title { font-size: 32px; }
+                .projects-grid { 
+                    grid-template-columns: 1fr; 
+                }
+                .project-card { max-width: 450px; }
+
+                footer { padding: 60px 20px; border-radius: 48px; }
+                .footer_main { flex-direction: column; align-items: center; text-align: center; }
+                .footer_column { align-items: center; }
+                .footer_social { justify-content: center; }
+            }
+
+            @media (max-width: 480px) {
+                .header_text { display: none; }
+                .project-card { max-width: 100%; }
+                .filter-btn { padding: 10px 16px; font-size: 13px; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header_logo">
+                <img src="image/logo.svg" alt="Logo">
+                <div class="header_text">BAN CÔNG NGHỆ</div>
+            </div>
+
+            <div class="header_nav">
+                <a class="header_nav_item" href="index.html">TRANG CHỦ</a>
+                <a class="header_nav_item active" href="#">DỰ ÁN</a> 
+                <a class="header_nav_item" href="index.html#faq">LIÊN HỆ</a> 
+            </div>
+
+            <div class="header_cta-button">
+                <a class="header_cta-link" href="#">Tham gia</a>
+            </div>
+        </header>
+
+        <section class="project-hero">
+            <div class="pre-title">Thành quả sáng tạo</div>
+            <h1 class="main-title">Kho lưu trữ <span>Dự án</span></h1>
+            
+            <div class="filter-container">
+                <button class="filter-btn active">Tất cả</button>
+                <button class="filter-btn">Web App</button>
+                <button class="filter-btn">Mobile</button>
+                <button class="filter-btn">UI/UX Design</button>
+            </div>
+        </section>
+
+        <section class="projects-grid">
+            <!-- Dự án 1 -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="image/du-an-1.svg" alt="Borcelle Restaurant">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Web App</span>
+                        <span class="tag">ReactJS</span>
+                    </div>
+                    <h3 class="project-name">Borcelle Restaurant</h3>
+                    <p class="project-desc">Hệ thống đặt bàn và gọi món trực tuyến tối ưu cho nhà hàng cao cấp, tích hợp thanh toán nhanh.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+
+            <!-- Dự án 2 -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="image/DU-AN-2.svg" alt="Project Team Three">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Flutter</span>
+                    </div>
+                    <h3 class="project-name">Project Team Three</h3>
+                    <p class="project-desc">Ứng dụng quản lý công việc nhóm dành cho sinh viên, đồng bộ hóa lịch trình và nhắc nhở thời gian thực.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+
+            <!-- Dự án 3 -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="image/du-an-3.svg" alt="Club Finder">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Figma</span>
+                    </div>
+                    <h3 class="project-name">Club Finder</h3>
+                    <p class="project-desc">Nền tảng kết nối sinh viên với các câu lạc bộ dựa trên sở thích và kỹ năng cá nhân.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+
+            <!-- Dự án 4 (Mẫu mới) -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="https://images.unsplash.com/photo-1551288049-bbda38a10ad5?q=80&w=600" alt="Data Dashboard">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Data</span>
+                        <span class="tag">Python</span>
+                    </div>
+                    <h3 class="project-name">BCN Dashboard</h3>
+                    <p class="project-desc">Công cụ trực quan hóa dữ liệu hoạt động của Ban Công Nghệ qua các nhiệm kỳ.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+
+            <!-- Dự án 5 -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=600" alt="Social App">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                    <h3 class="project-name">Connect+</h3>
+                    <p class="project-desc">Mạng xã hội nội bộ dành riêng cho sinh viên kỹ thuật trao đổi tài liệu và kinh nghiệm code.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+
+            <!-- Dự án 6 -->
+            <div class="project-card">
+                <div class="project-image-box">
+                    <img class="project-image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600" alt="SEO tool">
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="tag">Web App</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <h3 class="project-name">IUH Scholar</h3>
+                    <p class="project-desc">Tiện ích hỗ trợ sinh viên tra cứu điểm rèn luyện và lịch học một cách tự động và nhanh chóng.</p>
+                    <a href="#" class="project-link">Xem chi tiết ➜</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer_glow"></div>
+            <div class="footer_cta">
+                <h3 class="footer_cta-title">Sẵn sàng bứt phá <br> giới hạn bản thân?</h3>
+                <div class="header_cta-button">
+                    <a class="header_cta-link" href="#">Tham gia ngay</a>
+                </div>
+            </div>
+
+            <div class="footer_main">
+                <div class="footer_column">
+                    <div class="footer_logo-box">
+                        <img class="header_logo" src="image/logo.svg" style="height: 48px;">
+                        <div class="footer_text">BAN CÔNG NGHỆ</div>
+                    </div>
+                    <p class="footer_column-text" style="color: #FFFFFFB2; font-size: 14px; max-width: 300px;">Đơn vị kỹ thuật nòng cốt, nơi ươm mầm tài năng và hiện thực hóa các giải pháp công nghệ sáng tạo.</p>
+                    <div class="footer_social">
+                        <a href="#" class="footer_social-icon">
+                            <img src="image/fb.svg" alt="Facebook">
+                        </a>
+                        <a href="#" class="footer_social-icon">
+                            <img src="image/ins.svg" alt="Instagram">
+                        </a>
+                        <a href="#" class="footer_social-icon">
+                            <img src="image/tiktok.svg" alt="Tiktok">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer_column">
+                    <h4 class="footer_column-title" style="font-weight: 700; text-transform: uppercase;">Khám phá</h4>
+                    <ul class="ad-1">
+                        <li><a href="index.html#about" class="footer_column-text-1">Về chúng tôi</a></li>
+                        <li><a href="#" class="footer_column-text-1">Các dự án</a></li>
+                        <li><a href="index.html#route" class="footer_column-text-1">Lộ trình phát triển</a></li>
+                        <li><a href="index.html#faq" class="footer_column-text-1">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer_column">
+                    <h4 class="footer_column-title" style="font-weight: 700; text-transform: uppercase;">Văn phòng</h4>
+                    <p class="footer_column-text" style="color: #FFFFFFB2; font-size: 14px;">Lầu 1, nhà H</p>
+                    <p class="footer_column-text" style="color: #FFFFFFB2; font-size: 14px;">Đại học Công nghiệp TP. HCM</p>
+                    <p class="footer_column-text" style="color: #FFFFFFB2; font-size: 14px;">Số 12 Nguyễn Văn Bảo, P. Hạnh Thông, Thành phố Hồ Chí Minh</p>
+                </div>
+            </div>
+
+            <div class="footer_bottom">
+                © 2026 BAN CÔNG NGHỆ • PRISM GUILD
+            </div>
+        </footer>
+    </body>
+</html>
